@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova Studio — цифровой рост</title>
+    <meta
+      name="description"
+      content="Одностраничный лендинг для digital-агентства Nova Studio."
+    />
+    <style>
+      :root {
+        --bg: #09111f;
+        --bg-soft: #111c2f;
+        --panel: rgba(17, 28, 47, 0.82);
+        --panel-strong: #16233d;
+        --text: #edf4ff;
+        --muted: #a9b9d1;
+        --primary: #69d2ff;
+        --primary-strong: #36b3ff;
+        --accent: #8d7bff;
+        --success: #7ef0bf;
+        --border: rgba(255, 255, 255, 0.08);
+        --shadow: 0 24px 60px rgba(18, 30, 52, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(105, 210, 255, 0.14), transparent 25%),
+          radial-gradient(circle at bottom right, rgba(141, 123, 255, 0.14), transparent 30%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(16px);
+        background: rgba(9, 17, 31, 0.7);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .logo-mark {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        box-shadow: var(--shadow);
+        color: #07111d;
+        font-weight: 900;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 22px;
+        border-radius: 14px;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: #08111c;
+        box-shadow: 0 16px 30px rgba(105, 210, 255, 0.32);
+      }
+
+      .btn-secondary {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 90px 0 40px;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: center;
+        gap: 42px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(105, 210, 255, 0.08);
+        border: 1px solid rgba(105, 210, 255, 0.18);
+        color: var(--primary);
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 18px 0 18px;
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 1.05;
+        letter-spacing: -0.06em;
+      }
+
+      .lead {
+        max-width: 620px;
+        font-size: 1.08rem;
+        color: var(--muted);
+        margin-bottom: 30px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+
+      .metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+      }
+
+      .metric {
+        min-width: 120px;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 1.8rem;
+        line-height: 1;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .hero-visual {
+        position: relative;
+      }
+
+      .dashboard {
+        position: relative;
+        border-radius: 28px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .dashboard-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 18px 18px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.25);
+      }
+
+      .dot:first-child { background: #ff6d7a; }
+      .dot:nth-child(2) { background: #ffc662; }
+      .dot:last-child { background: #5df0a2; }
+
+      .dashboard-body {
+        padding: 20px;
+      }
+
+      .chart-bars {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        align-items: end;
+        gap: 12px;
+        height: 180px;
+        padding: 16px 8px 10px;
+      }
+
+      .chart-bars span {
+        display: block;
+        background: linear-gradient(180deg, var(--primary), var(--accent));
+        border-radius: 12px 12px 0 0;
+        box-shadow: inset 0 0 20px rgba(255,255,255,0.18);
+      }
+
+      .mini-card {
+        position: absolute;
+        right: -22px;
+        bottom: 20px;
+        width: min(250px, 42%);
+        padding: 18px 18px 16px;
+        border-radius: 18px;
+        background: rgba(17, 28, 47, 0.9);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .mini-card .label {
+        color: var(--muted);
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+      }
+
+      .mini-card strong {
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 8px;
+      }
+
+      .progress {
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.08);
+        overflow: hidden;
+      }
+
+      .progress > i {
+        display: block;
+        width: 72%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--success), var(--primary));
+      }
+
+      section {
+        padding: 88px 0;
+      }
+
+      .section-header {
+        max-width: 640px;
+        margin: 0 auto 40px;
+        text-align: center;
+      }
+
+      .section-header h2 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 3vw, 3rem);
+        letter-spacing: -0.05em;
+      }
+
+      .section-header p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .card {
+        padding: 28px 24px;
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: rgba(17, 28, 47, 0.72);
+        box-shadow: var(--shadow);
+      }
+
+      .icon {
+        width: 52px;
+        height: 52px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(105, 210, 255, 0.18), rgba(141, 123, 255, 0.2));
+        margin-bottom: 18px;
+        font-size: 1.45rem;
+      }
+
+      .card h3 {
+        margin: 0 0 12px;
+        font-size: 1.25rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .step {
+        position: relative;
+        padding: 28px 18px 20px;
+        border-radius: 22px;
+        background: rgba(17, 28, 47, 0.7);
+        border: 1px solid var(--border);
+      }
+
+      .step-number {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 18px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: #07121d;
+        font-weight: 800;
+      }
+
+      .step h3 {
+        margin: 0 0 8px;
+      }
+
+      .step p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .showcase {
+        overflow: hidden;
+        border-radius: 22px;
+        background: rgba(17, 28, 47, 0.7);
+        border: 1px solid var(--border);
+      }
+
+      .showcase-visual {
+        height: 220px;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(237,244,255,0.96);
+        background: linear-gradient(135deg, rgba(105,210,255,0.18), rgba(141,123,255,0.25));
+      }
+
+      .showcase-body {
+        padding: 22px 20px 24px;
+      }
+
+      .showcase-body h3 {
+        margin: 0 0 8px;
+      }
+
+      .showcase-body p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .testimonial-block {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 30px 28px;
+        border-radius: 28px;
+        text-align: center;
+        background: rgba(17, 28, 47, 0.8);
+        border: 1px solid var(--border);
+      }
+
+      .testimonial-block p {
+        font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+        line-height: 1.5;
+        margin: 0 0 18px;
+      }
+
+      .person {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .avatar {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: #06131d;
+        font-weight: 800;
+      }
+
+      .person small {
+        display: block;
+        color: var(--muted);
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .price-card {
+        padding: 28px 22px;
+        border-radius: 26px;
+        border: 1px solid var(--border);
+        background: rgba(17, 28, 47, 0.7);
+      }
+
+      .price-card.featured {
+        transform: scale(1.02);
+        background: linear-gradient(180deg, rgba(105, 210, 255, 0.06), rgba(141, 123, 255, 0.09));
+        border-color: rgba(105, 210, 255, 0.28);
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 7px 10px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: rgba(126, 240, 191, 0.08);
+        color: var(--success);
+        border: 1px solid rgba(126, 240, 191, 0.18);
+      }
+
+      .price-card h3 {
+        margin: 18px 0 10px;
+        font-size: 1.5rem;
+      }
+
+      .price {
+        font-size: 2.7rem;
+        font-weight: 800;
+        letter-spacing: -0.06em;
+        margin-bottom: 18px;
+      }
+
+      .price small {
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .price-list {
+        list-style: none;
+        margin: 0 0 24px;
+        padding: 0;
+        display: grid;
+        gap: 12px;
+        color: var(--muted);
+      }
+
+      .price-list li::before {
+        content: "✓";
+        color: var(--success);
+        margin-right: 10px;
+      }
+
+      .cta {
+        padding: 26px 24px;
+        border-radius: 28px;
+        background: linear-gradient(135deg, rgba(105,210,255,0.12), rgba(141,123,255,0.14));
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .cta h3 {
+        margin: 0 0 6px;
+        font-size: clamp(1.6rem, 2vw, 2.3rem);
+      }
+
+      .cta p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .site-footer {
+        padding: 32px 0 60px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid var(--border);
+        padding-top: 24px;
+      }
+
+      @media (max-width: 900px) {
+        .hero-inner,
+        .feature-grid,
+        .portfolio-grid,
+        .pricing-grid,
+        .steps {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .hero-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .cta {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          padding-top: 60px;
+        }
+
+        .feature-grid,
+        .portfolio-grid,
+        .pricing-grid,
+        .steps {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-actions,
+        .metrics {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .mini-card {
+          position: static;
+          width: 100%;
+          margin-top: 18px;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="#top" class="logo" aria-label="Nova Studio home">
+          <span class="logo-mark">N</span>
+          <span>Nova Studio</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#about">О нас</a>
+          <a href="#features">Преимущества</a>
+          <a href="#work">Как работаем</a>
+          <a href="#pricing">Тарифы</a>
+          <a href="#contact">Контакты</a>
+        </nav>
+
+        <a class="btn btn-primary" href="#contact">Обсудить проект</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-inner">
+          <div>
+            <span class="eyebrow">Цифровой рост</span>
+            <h1>Запускаем бренды, которые хочется рекомендовать.</h1>
+            <p class="lead">
+              Мы помогаем компаниям выделяться в интернете: строим сильный бренд,
+              запускаем маркетинг и превращаем трафик в заявки, продажи и лояльность.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#contact">Начать проект</a>
+              <a class="btn btn-secondary" href="#features">Смотреть решения</a>
+            </div>
+
+            <div class="metrics" aria-label="Key metrics">
+              <div class="metric">
+                <strong>120+</strong>
+                <span>успешных запусков</span>
+              </div>
+              <div class="metric">
+                <strong>4.9/5</strong>
+                <span>средняя оценка</span>
+              </div>
+              <div class="metric">
+                <strong>3x</strong>
+                <span>рост конверсии</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-label="Analytics preview">
+            <div class="dashboard">
+              <div class="dashboard-header">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </div>
+              <div class="dashboard-body">
+                <div class="chart-bars" aria-hidden="true">
+                  <span style="height: 42%"></span>
+                  <span style="height: 58%"></span>
+                  <span style="height: 76%"></span>
+                  <span style="height: 68%"></span>
+                  <span style="height: 90%"></span>
+                  <span style="height: 84%"></span>
+                  <span style="height: 100%"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mini-card">
+              <div class="label">Рост заявок</div>
+              <strong>+146%</strong>
+              <div class="progress" aria-label="Progress bar"><i></i></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="container">
+          <div class="section-header">
+            <h2>Ищете партнёра, который понимает бизнес?</h2>
+            <p>
+              Мы объединяем стратегию, дизайн и маркетинг, чтобы каждый элемент вашего
+              присутствия в интернете работал на результат.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="container">
+          <div class="section-header">
+            <h2>Что мы делаем</h2>
+            <p>Услуги, которые помогают бизнесу расти без хаоса и лишних решений.</p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="card">
+              <div class="icon">✦</div>
+              <h3>Брендинг</h3>
+              <p>
+                Разрабатываем визуальную и смысловую идею бренда, чтобы он выглядел
+                дорого, запоминался и вызывал доверие.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="icon">◎</div>
+              <h3>Сайты под задачи</h3>
+              <p>
+                Создаём продающие landing page и сайты, которые быстро загружаются,
+                удобны на мобильных устройствах и помогают закрывать лиды.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="icon">↗</div>
+              <h3>Маркетинг</h3>
+              <p>
+                Строим рекламные кампании, оптимизируем воронки и повышаем конверсию
+                через данные, а не интуицию.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="container">
+          <div class="section-header">
+            <h2>Как мы работаем</h2>
+            <p>Простой и понятный процесс от идеи до результата.</p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <h3>Диагностика</h3>
+              <p>Анализируем продукт, рынок, аудиторию и текущие точки роста.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">2</div>
+              <h3>Стратегия</h3>
+              <p>Формируем позиционирование, ключевые сообщения и план продвижения.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">3</div>
+              <h3>Реализация</h3>
+              <p>Проектируем и запускаем интерфейс, копирайтинг и рекламные механики.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">4</div>
+              <h3>Оптимизация</h3>
+              <p>Собираем метрики и постоянно улучшаем конверсию и показатели роста.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="section-header">
+            <h2>Наши кейсы</h2>
+            <p>Локальные истории роста, которые говорят сами за себя.</p>
+          </div>
+
+          <div class="portfolio-grid">
+            <article class="showcase">
+              <div class="showcase-visual">B2B</div>
+              <div class="showcase-body">
+                <h3>Сервис для бизнеса</h3>
+                <p>Увеличили трафик в 2.5 раза и сократили стоимость лида на 31%.</p>
+              </div>
+            </article>
+
+            <article class="showcase">
+              <div class="showcase-visual">E-COM</div>
+              <div class="showcase-body">
+                <h3>Интернет-магазин</h3>
+                <p>Запустили рекламу и улучшили UX, что дало рост продаж на 148%.</p>
+              </div>
+            </article>
+
+            <article class="showcase">
+              <div class="showcase-visual">SaaS</div>
+              <div class="showcase-body">
+                <h3>Продукт для команд</h3>
+                <p>Перестроили воронку, повысили конверсию страницы и удержание клиентов.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="testimonial-block">
+            <p>
+              “Работа с Nova Studio изменила наш подход к маркетингу. За 3 месяца мы
+              не только улучшили визуальную часть, но и в разы подняли эффективность
+              рекламных кампаний.”
+            </p>
+            <div class="person">
+              <div class="avatar">А</div>
+              <div>
+                <strong>Алексей Морозов</strong>
+                <small>CEO, BrightLab</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing">
+        <div class="container">
+          <div class="section-header">
+            <h2>Тарифы</h2>
+            <p>Гибкие варианты под разные задачи и этапы развития бизнеса.</p>
+          </div>
+
+          <div class="pricing-grid">
+            <article class="price-card">
+              <span class="tag">Старт</span>
+              <h3>Landing Page</h3>
+              <div class="price">49 000 <small>₽</small></div>
+              <ul class="price-list">
+                <li>Одностраничный сайт</li>
+                <li>Адаптивный дизайн</li>
+                <li>Базовая SEO-структура</li>
+                <li>Поддержка 1 месяц</li>
+              </ul>
+              <a href="#contact" class="btn btn-secondary">Выбрать</a>
+            </article>
+
+            <article class="price-card featured">
+              <span class="tag">Популярно</span>
+              <h3>Бизнес-сайт</h3>
+              <div class="price">89 000 <small>₽</small></div>
+              <ul class="price-list">
+                <li>Решение под бренд</li>
+                <li>Копирайтинг и структура</li>
+                <li>CRM-формы и аналитика</li>
+                <li>Оптимизация под рекламу</li>
+              </ul>
+              <a href="#contact" class="btn btn-primary">Выбрать</a>
+            </article>
+
+            <article class="price-card">
+              <span class="tag">Под ключ</span>
+              <h3>Маркетинг-пакет</h3>
+              <div class="price">От 140 000 <small>₽</small></div>
+              <ul class="price-list">
+                <li>Полный цикл продвижения</li>
+                <li>Рекламные кампании</li>
+                <li>А/В тесты и аналитика</li>
+                <li>Поддержка и отчётность</li>
+              </ul>
+              <a href="#contact" class="btn btn-secondary">Выбрать</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container">
+          <div class="cta">
+            <div>
+              <h3>Готовы сделать сильный запуск?</h3>
+              <p>Напишите нам — обсудим задачу и подберём лучшее решение.</p>
+            </div>
+            <a href="mailto:hello@novastudio.ru" class="btn btn-primary">hello@novastudio.ru</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Nova Studio</div>
+        <div>Дизайн и маркетинг для роста бизнеса</div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
